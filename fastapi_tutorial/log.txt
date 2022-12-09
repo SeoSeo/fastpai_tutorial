@@ -1,0 +1,463 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.9.6, pytest-7.2.0, pluggy-1.0.0
+rootdir: /Users/krc/fastapi_tutorial, configfile: pytest.ini
+plugins: asyncio-0.20.2, cov-4.0.0, anyio-3.6.2
+asyncio: mode=strict
+collected 20 items
+
+tests/test_main.py F                                                     [  5%]
+tests/test_quiz.py FFFFF                                                 [ 30%]
+tests/test_user.py FE                                                    [ 40%]
+tests/test_webhook.py FFFFFFFFFFFF                                       [100%]
+
+==================================== ERRORS ====================================
+_______________________ ERROR at setup of test_get_user ________________________
+
+session = <async_generator object session at 0x1089cc1f0>
+
+    @pytest.fixture
+    def user(session) -> models.User:
+        row = models.User(username="fc2021", first_name="Fast", last_name="Campus")
+>       session.add(row)
+E       AttributeError: 'async_generator' object has no attribute 'add'
+
+tests/conftest.py:51: AttributeError
+=================================== FAILURES ===================================
+__________________________________ test_index __________________________________
+
+default_client = <async_generator object default_client at 0x10874f310>
+
+    @pytest.mark.asyncio
+    async def test_index(default_client):
+>       r = await default_client.get("")
+E       AttributeError: 'async_generator' object has no attribute 'get'
+
+tests/test_main.py:6: AttributeError
+______________________________ test_get_quiz_list ______________________________
+
+client = <async_generator object client at 0x10878d1f0>
+
+    @pytest.mark.asyncio
+    async def test_get_quiz_list(client):
+>       r = await client.get("/quizzes")
+E       AttributeError: 'async_generator' object has no attribute 'get'
+
+tests/test_quiz.py:8: AttributeError
+__________________________ test_create_quiz[None-422] __________________________
+
+client = <async_generator object client at 0x10878d5e0>
+session = <async_generator object session at 0x10878d4c0>, q = None
+expected = 422
+
+    @pytest.mark.parametrize(
+        # parametrize 데코레이터로서
+        "q, expected",
+        # 처음에 넘겨줄 parameter 를 str로 넘기고, []list와 ()tuple로 원하는 값으로 넘기는 것.
+        # expected == 예상되는 status code.
+        [
+            # ex) q=None, expected=422로서 넘어감.
+            (None, 422),
+            ("🇰🇷 대한민국의 수도는?", 201),
+            ("🐬 MySQL 로고의 동물은 무엇인가요?", 201),
+        ],
+    )
+    @pytest.mark.asyncio
+    async def test_create_quiz(client, session, q, expected):
+        data = {
+            "question": q,
+            "content": "1️⃣ 서울\n2️⃣ 인천\n3️⃣ 부산\n4️⃣ 대구",
+            "answer": 1,
+        }
+    
+>       r = await client.post("/quizzes", json=data)
+E       AttributeError: 'async_generator' object has no attribute 'post'
+
+tests/test_quiz.py:35: AttributeError
+_ test_create_quiz[\U0001f1f0\U0001f1f7 \ub300\ud55c\ubbfc\uad6d\uc758 \uc218\ub3c4\ub294?-201] _
+
+client = <async_generator object client at 0x10878d790>
+session = <async_generator object session at 0x10878d8b0>, q = '🇰🇷 대한민국의 수도는?'
+expected = 201
+
+    @pytest.mark.parametrize(
+        # parametrize 데코레이터로서
+        "q, expected",
+        # 처음에 넘겨줄 parameter 를 str로 넘기고, []list와 ()tuple로 원하는 값으로 넘기는 것.
+        # expected == 예상되는 status code.
+        [
+            # ex) q=None, expected=422로서 넘어감.
+            (None, 422),
+            ("🇰🇷 대한민국의 수도는?", 201),
+            ("🐬 MySQL 로고의 동물은 무엇인가요?", 201),
+        ],
+    )
+    @pytest.mark.asyncio
+    async def test_create_quiz(client, session, q, expected):
+        data = {
+            "question": q,
+            "content": "1️⃣ 서울\n2️⃣ 인천\n3️⃣ 부산\n4️⃣ 대구",
+            "answer": 1,
+        }
+    
+>       r = await client.post("/quizzes", json=data)
+E       AttributeError: 'async_generator' object has no attribute 'post'
+
+tests/test_quiz.py:35: AttributeError
+_ test_create_quiz[\U0001f42c MySQL \ub85c\uace0\uc758 \ub3d9\ubb3c\uc740 \ubb34\uc5c7\uc778\uac00\uc694?-201] _
+
+client = <async_generator object client at 0x10878dd30>
+session = <async_generator object session at 0x1087aa040>
+q = '🐬 MySQL 로고의 동물은 무엇인가요?', expected = 201
+
+    @pytest.mark.parametrize(
+        # parametrize 데코레이터로서
+        "q, expected",
+        # 처음에 넘겨줄 parameter 를 str로 넘기고, []list와 ()tuple로 원하는 값으로 넘기는 것.
+        # expected == 예상되는 status code.
+        [
+            # ex) q=None, expected=422로서 넘어감.
+            (None, 422),
+            ("🇰🇷 대한민국의 수도는?", 201),
+            ("🐬 MySQL 로고의 동물은 무엇인가요?", 201),
+        ],
+    )
+    @pytest.mark.asyncio
+    async def test_create_quiz(client, session, q, expected):
+        data = {
+            "question": q,
+            "content": "1️⃣ 서울\n2️⃣ 인천\n3️⃣ 부산\n4️⃣ 대구",
+            "answer": 1,
+        }
+    
+>       r = await client.post("/quizzes", json=data)
+E       AttributeError: 'async_generator' object has no attribute 'post'
+
+tests/test_quiz.py:35: AttributeError
+_____________________________ test_get_random_quiz _____________________________
+
+client = <async_generator object client at 0x10878d5e0>
+add_quiz = <function add_quiz.<locals>.func at 0x1087aa280>
+
+    @pytest.mark.asyncio
+    async def test_get_random_quiz(client, add_quiz):
+        for _ in range(10):
+>           add_quiz()  # confest.py
+
+tests/test_quiz.py:45: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+question = None, content = None, answer = None
+
+    def func(question: str = None, content: str = None, answer: int = None) -> models.Quiz:
+        r = models.Quiz(
+            # or 는 아무런 질문도 하지 않을 경우 대비 즉 빈칸 대비용.
+            question=question or "Question!",
+            content=content or "Content Text!",
+            answer=answer or 1,
+        )
+>       session.add(r)
+E       AttributeError: 'async_generator' object has no attribute 'add'
+
+tests/conftest.py:67: AttributeError
+_____________________________ test_get_empty_user ______________________________
+
+client = <async_generator object client at 0x1089bdca0>
+
+    @pytest.mark.asyncio
+    async def test_get_empty_user(client):
+        # 실제로는 유저가 생성되어 있지 않음. 인자로 안 받아왔으니까.
+>       r = await client.get("/users")
+E       AttributeError: 'async_generator' object has no attribute 'get'
+
+tests/test_user.py:7: AttributeError
+_______________________________ test_get_webhook _______________________________
+
+client = <async_generator object client at 0x1089ee1f0>
+
+    @pytest.mark.asyncio
+    async def test_get_webhook(client):
+>       r = await client.get("/webhook")
+E       AttributeError: 'async_generator' object has no attribute 'get'
+
+tests/test_webhook.py:34: AttributeError
+_______________________________ test_set_webhook _______________________________
+
+client = <async_generator object client at 0x1089ee820>
+
+    @pytest.mark.asyncio
+    async def test_set_webhook(client):
+>       r = await client.post("/webhook", json={"url": "https://example.com"})
+E       AttributeError: 'async_generator' object has no attribute 'post'
+
+tests/test_webhook.py:43: AttributeError
+___________________ test_webhook[\ubb38\uc81c \ub0b4\uc918] ____________________
+
+client = <async_generator object client at 0x1089eeb80>
+add_quiz = <function add_quiz.<locals>.func at 0x1089eed30>, text = '문제 내줘'
+
+    @pytest.mark.parametrize("text", text_from_user)
+    @pytest.mark.asyncio
+    async def test_webhook(client, add_quiz, text):
+        for _ in range(10):
+>           add_quiz()
+
+tests/test_webhook.py:54: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+question = None, content = None, answer = None
+
+    def func(question: str = None, content: str = None, answer: int = None) -> models.Quiz:
+        r = models.Quiz(
+            # or 는 아무런 질문도 하지 않을 경우 대비 즉 빈칸 대비용.
+            question=question or "Question!",
+            content=content or "Content Text!",
+            answer=answer or 1,
+        )
+>       session.add(r)
+E       AttributeError: 'async_generator' object has no attribute 'add'
+
+tests/conftest.py:67: AttributeError
+____________________ test_webhook[\ud034\uc988\ud034\uc988] ____________________
+
+client = <async_generator object client at 0x1089eeee0>
+add_quiz = <function add_quiz.<locals>.func at 0x1089bde50>, text = '퀴즈퀴즈'
+
+    @pytest.mark.parametrize("text", text_from_user)
+    @pytest.mark.asyncio
+    async def test_webhook(client, add_quiz, text):
+        for _ in range(10):
+>           add_quiz()
+
+tests/test_webhook.py:54: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+question = None, content = None, answer = None
+
+    def func(question: str = None, content: str = None, answer: int = None) -> models.Quiz:
+        r = models.Quiz(
+            # or 는 아무런 질문도 하지 않을 경우 대비 즉 빈칸 대비용.
+            question=question or "Question!",
+            content=content or "Content Text!",
+            answer=answer or 1,
+        )
+>       session.add(r)
+E       AttributeError: 'async_generator' object has no attribute 'add'
+
+tests/conftest.py:67: AttributeError
+_______________________________ test_webhook[1] ________________________________
+
+client = <async_generator object client at 0x1089eec10>
+add_quiz = <function add_quiz.<locals>.func at 0x1087aa280>, text = '1'
+
+    @pytest.mark.parametrize("text", text_from_user)
+    @pytest.mark.asyncio
+    async def test_webhook(client, add_quiz, text):
+        for _ in range(10):
+>           add_quiz()
+
+tests/test_webhook.py:54: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+question = None, content = None, answer = None
+
+    def func(question: str = None, content: str = None, answer: int = None) -> models.Quiz:
+        r = models.Quiz(
+            # or 는 아무런 질문도 하지 않을 경우 대비 즉 빈칸 대비용.
+            question=question or "Question!",
+            content=content or "Content Text!",
+            answer=answer or 1,
+        )
+>       session.add(r)
+E       AttributeError: 'async_generator' object has no attribute 'add'
+
+tests/conftest.py:67: AttributeError
+______________________________ test_webhook[123] _______________________________
+
+client = <async_generator object client at 0x108a13040>
+add_quiz = <function add_quiz.<locals>.func at 0x108a133a0>, text = '123'
+
+    @pytest.mark.parametrize("text", text_from_user)
+    @pytest.mark.asyncio
+    async def test_webhook(client, add_quiz, text):
+        for _ in range(10):
+>           add_quiz()
+
+tests/test_webhook.py:54: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+question = None, content = None, answer = None
+
+    def func(question: str = None, content: str = None, answer: int = None) -> models.Quiz:
+        r = models.Quiz(
+            # or 는 아무런 질문도 하지 않을 경우 대비 즉 빈칸 대비용.
+            question=question or "Question!",
+            content=content or "Content Text!",
+            answer=answer or 1,
+        )
+>       session.add(r)
+E       AttributeError: 'async_generator' object has no attribute 'add'
+
+tests/conftest.py:67: AttributeError
+________________________ test_webhook_with_right_answer ________________________
+
+client = <async_generator object client at 0x108a130d0>
+add_quiz = <function add_quiz.<locals>.func at 0x108a138b0>
+
+    @pytest.mark.asyncio
+    async def test_webhook_with_right_answer(client, add_quiz):
+>       quiz = add_quiz()
+
+tests/test_webhook.py:67: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+question = None, content = None, answer = None
+
+    def func(question: str = None, content: str = None, answer: int = None) -> models.Quiz:
+        r = models.Quiz(
+            # or 는 아무런 질문도 하지 않을 경우 대비 즉 빈칸 대비용.
+            question=question or "Question!",
+            content=content or "Content Text!",
+            answer=answer or 1,
+        )
+>       session.add(r)
+E       AttributeError: 'async_generator' object has no attribute 'add'
+
+tests/conftest.py:67: AttributeError
+________________________ test_webhook_with_wrong_answer ________________________
+
+client = <async_generator object client at 0x108a135e0>
+add_quiz = <function add_quiz.<locals>.func at 0x108a13a60>
+
+    @pytest.mark.asyncio
+    async def test_webhook_with_wrong_answer(client, add_quiz):
+>       quiz = add_quiz()
+
+tests/test_webhook.py:87: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+question = None, content = None, answer = None
+
+    def func(question: str = None, content: str = None, answer: int = None) -> models.Quiz:
+        r = models.Quiz(
+            # or 는 아무런 질문도 하지 않을 경우 대비 즉 빈칸 대비용.
+            question=question or "Question!",
+            content=content or "Content Text!",
+            answer=answer or 1,
+        )
+>       session.add(r)
+E       AttributeError: 'async_generator' object has no attribute 'add'
+
+tests/conftest.py:67: AttributeError
+___________ test_webhook_with_empty_quiz[\ubb38\uc81c \ub0b4\uc918] ____________
+
+client = <async_generator object client at 0x108a13c10>, text = '문제 내줘'
+
+    @pytest.mark.parametrize("text", text_from_user)
+    @pytest.mark.asyncio
+    async def test_webhook_with_empty_quiz(client, text):
+        data["message"]["text"] = text
+>       r = await client.post(
+            f"/webhook/{settings.TELEGRAM_BOT_TOKEN.get_secret_value()}",
+            json=data,
+        )
+E       AttributeError: 'async_generator' object has no attribute 'post'
+
+tests/test_webhook.py:109: AttributeError
+____________ test_webhook_with_empty_quiz[\ud034\uc988\ud034\uc988] ____________
+
+client = <async_generator object client at 0x108a134c0>, text = '퀴즈퀴즈'
+
+    @pytest.mark.parametrize("text", text_from_user)
+    @pytest.mark.asyncio
+    async def test_webhook_with_empty_quiz(client, text):
+        data["message"]["text"] = text
+>       r = await client.post(
+            f"/webhook/{settings.TELEGRAM_BOT_TOKEN.get_secret_value()}",
+            json=data,
+        )
+E       AttributeError: 'async_generator' object has no attribute 'post'
+
+tests/test_webhook.py:109: AttributeError
+_______________________ test_webhook_with_empty_quiz[1] ________________________
+
+client = <async_generator object client at 0x108a13820>, text = '1'
+
+    @pytest.mark.parametrize("text", text_from_user)
+    @pytest.mark.asyncio
+    async def test_webhook_with_empty_quiz(client, text):
+        data["message"]["text"] = text
+>       r = await client.post(
+            f"/webhook/{settings.TELEGRAM_BOT_TOKEN.get_secret_value()}",
+            json=data,
+        )
+E       AttributeError: 'async_generator' object has no attribute 'post'
+
+tests/test_webhook.py:109: AttributeError
+______________________ test_webhook_with_empty_quiz[123] _______________________
+
+client = <async_generator object client at 0x1089eec10>, text = '123'
+
+    @pytest.mark.parametrize("text", text_from_user)
+    @pytest.mark.asyncio
+    async def test_webhook_with_empty_quiz(client, text):
+        data["message"]["text"] = text
+>       r = await client.post(
+            f"/webhook/{settings.TELEGRAM_BOT_TOKEN.get_secret_value()}",
+            json=data,
+        )
+E       AttributeError: 'async_generator' object has no attribute 'post'
+
+tests/test_webhook.py:109: AttributeError
+=============================== warnings summary ===============================
+../Library/Python/3.9/lib/python/site-packages/_pytest/config/__init__.py:1294
+  /Users/krc/Library/Python/3.9/lib/python/site-packages/_pytest/config/__init__.py:1294: PytestConfigWarning: Unknown config option: tracemalloc
+  
+    self._warn_or_fail_if_strict(f"Unknown config option: {key}\n")
+
+tests/test_user.py::test_get_user
+  /Users/krc/Library/Python/3.9/lib/python/site-packages/_pytest/runner.py:137: RuntimeWarning: coroutine 'mock_telegram' was never awaited
+    item.funcargs = None  # type: ignore[attr-defined]
+  Enable tracemalloc to get traceback where the object was allocated.
+  See https://docs.pytest.org/en/stable/how-to/capture-warnings.html#resource-warnings for more info.
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+
+---------- coverage: platform darwin, python 3.9.6-final-0 -----------
+Name                     Stmts   Miss  Cover
+--------------------------------------------
+app/api/__init__.py          4      0   100%
+app/api/deps.py              0      0   100%
+app/api/v1/__init__.py       6      0   100%
+app/api/v1/quiz.py          19      6    68%
+app/api/v1/user.py           9      1    89%
+app/api/v1/webhook.py       49     32    35%
+app/database.py             12      4    67%
+app/main.py                  9      1    89%
+app/models.py               22      0   100%
+app/schemas.py              21      0   100%
+--------------------------------------------
+TOTAL                      151     44    71%
+Coverage HTML written to dir htmlcov
+
+=========================== short test summary info ============================
+FAILED tests/test_main.py::test_index - AttributeError: 'async_generator' obj...
+FAILED tests/test_quiz.py::test_get_quiz_list - AttributeError: 'async_genera...
+FAILED tests/test_quiz.py::test_create_quiz[None-422] - AttributeError: 'asyn...
+FAILED tests/test_quiz.py::test_create_quiz[\U0001f1f0\U0001f1f7 \ub300\ud55c\ubbfc\uad6d\uc758 \uc218\ub3c4\ub294?-201]
+FAILED tests/test_quiz.py::test_create_quiz[\U0001f42c MySQL \ub85c\uace0\uc758 \ub3d9\ubb3c\uc740 \ubb34\uc5c7\uc778\uac00\uc694?-201]
+FAILED tests/test_quiz.py::test_get_random_quiz - AttributeError: 'async_gene...
+FAILED tests/test_user.py::test_get_empty_user - AttributeError: 'async_gener...
+FAILED tests/test_webhook.py::test_get_webhook - AttributeError: 'async_gener...
+FAILED tests/test_webhook.py::test_set_webhook - AttributeError: 'async_gener...
+FAILED tests/test_webhook.py::test_webhook[\ubb38\uc81c \ub0b4\uc918] - Attri...
+FAILED tests/test_webhook.py::test_webhook[\ud034\uc988\ud034\uc988] - Attrib...
+FAILED tests/test_webhook.py::test_webhook[1] - AttributeError: 'async_genera...
+FAILED tests/test_webhook.py::test_webhook[123] - AttributeError: 'async_gene...
+FAILED tests/test_webhook.py::test_webhook_with_right_answer - AttributeError...
+FAILED tests/test_webhook.py::test_webhook_with_wrong_answer - AttributeError...
+FAILED tests/test_webhook.py::test_webhook_with_empty_quiz[\ubb38\uc81c \ub0b4\uc918]
+FAILED tests/test_webhook.py::test_webhook_with_empty_quiz[\ud034\uc988\ud034\uc988]
+FAILED tests/test_webhook.py::test_webhook_with_empty_quiz[1] - AttributeErro...
+FAILED tests/test_webhook.py::test_webhook_with_empty_quiz[123] - AttributeEr...
+ERROR tests/test_user.py::test_get_user - AttributeError: 'async_generator' o...
+=================== 19 failed, 2 warnings, 1 error in 0.24s ====================
